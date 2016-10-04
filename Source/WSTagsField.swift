@@ -334,7 +334,7 @@ open class WSTagsField: UIView {
         let tagView = WSTagView(tag: tag)
         tagView.font = self.font
         tagView.tintColor = self.tintColor
-        tagView.textColor = self.textColor
+        tagView.textColor = self.fieldTextColor
         tagView.selectedColor = self.selectedColor
         tagView.selectedTextColor = self.selectedTextColor
         tagView.displayDelimiter = self.delimiter ?? ""

@@ -79,7 +79,7 @@ open class WSTagView: UIView {
     public init(tag: WSTag) {
         super.init(frame: CGRect.zero)
         backgroundLayer.backgroundColor = tintColor.cgColor
-        backgroundLayer.cornerRadius = 3.0
+        backgroundLayer.cornerRadius = 0
         backgroundLayer.masksToBounds = true
         layer.addSublayer(backgroundLayer)
 
@@ -157,7 +157,7 @@ open class WSTagView: UIView {
 
     fileprivate func updateLabelText() {
         // Unselected shows "[displayText]," and selected is "[displayText]"
-        textLabel.text = displayText + displayDelimiter
+        textLabel.text = displayDelimiter + displayText
         // Expand Label
         let intrinsicSize = self.intrinsicContentSize
         frame = CGRect(x: 0, y: 0, width: intrinsicSize.width, height: intrinsicSize.height)
