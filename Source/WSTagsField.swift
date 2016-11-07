@@ -112,6 +112,7 @@ open class WSTagsField: UIView {
 
     open fileprivate(set) var tags = [WSTag]()
     internal var tagViews = [WSTagView]()
+    internal var selectedTagView: WSTagView?
     fileprivate var intrinsicContentHeight: CGFloat = 0.0
 
 
@@ -135,6 +136,9 @@ open class WSTagsField: UIView {
     /// Called when a tag has been removed. You should use this opportunity to update your local list of selected items.
     open var onDidRemoveTag: ((WSTagsField, _ tag: WSTag) -> Void)?
 
+    /// Called when a selected tag has been deleted. You should use this opportunity to update your local list of selected items.
+    open var onDidDeleteSelectedTag: ((WSTagsField, _ tag: WSTag) -> Void)?
+  
     /**
      * Called when the user attempts to press the Return key with text partially typed.
      * @return A Tag for a match (typically the first item in the matching results),
@@ -384,6 +388,11 @@ open class WSTagsField: UIView {
         if index < 0 || index >= self.tags.count {
             return
         }
+        if let selectedTagView = selectedTagView, let selectedindex = self.tagViews.index(of: selectedTagView) {
+            if let didDeleteSelectedTagEvent = onDidDeleteSelectedTag {
+                didDeleteSelectedTagEvent(self, self.tags[selectedindex])
+            }
+        }
         let tagView = self.tagViews[index]
         tagView.removeFromSuperview()
         self.tagViews.remove(at: index)
@@ -433,6 +442,7 @@ open class WSTagsField: UIView {
             return
         }
         tagView.selected = true
+        selectedTagView = tagView
         tagViews.forEach() { item in
             if item != tagView {
                 item.selected = false
