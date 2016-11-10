@@ -330,9 +330,6 @@ open class WSTagsField: UIView {
     }
 
     open func addTag(_ tag: WSTag) {
-        if self.tags.contains(tag) {
-            return
-        }
         self.tags.append(tag)
 
         let tagView = WSTagView(tag: tag)
