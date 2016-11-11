@@ -17,7 +17,7 @@ open class WSTagsField: UIView {
     fileprivate static let STANDARD_ROW_HEIGHT: CGFloat = 25.0
     fileprivate static let FIELD_MARGIN_X: CGFloat = WSTagView.xPadding
 
-    fileprivate let textField = BackspaceDetectingTextField()
+    open let textField = BackspaceDetectingTextField()
 
     open override var tintColor: UIColor! {
         didSet {
@@ -499,7 +499,7 @@ private protocol BackspaceDetectingTextFieldDelegate: UITextFieldDelegate {
     func textFieldDidDeleteBackwards(_ textField: UITextField)
 }
 
-private class BackspaceDetectingTextField: UITextField {
+open class BackspaceDetectingTextField: UITextField {
 
     var onDeleteBackwards: Optional<()->()>
 
@@ -507,11 +507,11 @@ private class BackspaceDetectingTextField: UITextField {
         super.init(frame: CGRect.zero)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func deleteBackward() {
+    override open func deleteBackward() {
         if let deleteBackwardsEvent = onDeleteBackwards {
             deleteBackwardsEvent()
         }
