@@ -110,6 +110,8 @@ open class WSTagsField: UIView {
         }
     }
 
+    open var isVerifyTagUseSpace = false
+  
     open fileprivate(set) var tags = [WSTag]()
     internal var tagViews = [WSTagView]()
     internal var selectedTagView: WSTagView?
@@ -484,6 +486,9 @@ extension WSTagsField: UITextFieldDelegate {
     }
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == " " && isVerifyTagUseSpace {
+            tokenizeTextFieldText()
+        }
         return true
     }
 
