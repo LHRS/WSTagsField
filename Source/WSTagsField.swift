@@ -497,6 +497,10 @@ extension WSTagsField: UITextFieldDelegate {
         
         if ((string.characters.count + (textField.text?.characters.count)! >  tagMaxLength) )
         {
+          if string == " " && isVerifyTagUseSpace {
+            tokenizeTextFieldText()
+            return true
+          }
           if let callback = self.tagDidExcessLength{
             callback(self)
           }
