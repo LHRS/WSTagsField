@@ -17,8 +17,8 @@ open class WSTagsField: UIView {
     fileprivate static let STANDARD_ROW_HEIGHT: CGFloat = 25.0
     fileprivate static let FIELD_MARGIN_X: CGFloat = WSTagView.xPadding
   
-    var tagMaxLength = 15
-    var tagDidExcessLength : ((_ tagField : WSTagsField) -> Void)?
+    open var tagMaxLength = 15
+    open var tagDidExcessLength : ((_ tagField : WSTagsField) -> Void)?
   
 
     open let textField = BackspaceDetectingTextField()
