@@ -16,6 +16,10 @@ open class WSTagsField: UIView {
     fileprivate static let MINIMUM_TEXTFIELD_WIDTH: CGFloat = 56.0
     fileprivate static let STANDARD_ROW_HEIGHT: CGFloat = 25.0
     fileprivate static let FIELD_MARGIN_X: CGFloat = WSTagView.xPadding
+  
+    var tagMaxLength = 15
+    var tagDidExcessLength : ((_ tagField : WSTagsField) -> Void)?
+  
 
     open let textField = BackspaceDetectingTextField()
 
@@ -486,6 +490,19 @@ extension WSTagsField: UITextFieldDelegate {
     }
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (string.characters.count == 0 || textField.markedTextRange != nil)
+        {
+          return true;
+        }
+        
+        if ((string.characters.count + (textField.text?.characters.count)! >  tagMaxLength) )
+        {
+          if let callback = self.tagDidExcessLength{
+            callback(self)
+          }
+          return false;
+        }
+      
         if string == " " && isVerifyTagUseSpace {
             tokenizeTextFieldText()
         }
